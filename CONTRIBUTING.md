@@ -1,6 +1,8 @@
 # Contributing
 
-Contributions are welcome through issues and pull requests.
+Contributions are welcome through issues and pull requests. How the stack fits
+together is documented in [`docs/`](docs/README.md); local bootstrap is
+[`docs/dev-setup.md`](docs/dev-setup.md).
 
 ## Development
 

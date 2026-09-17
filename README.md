@@ -19,6 +19,24 @@ Pollers publish scanner snapshots to the normalizer. The normalizer resolves own
 from `config/`, updates PostgreSQL, and records snapshot-driven lifecycle changes. The
 API reads the same configuration and exposes data to the frontend and MCP clients.
 
+Longer guides live in [`docs/`](docs/README.md): architecture, local development,
+configuration YAML, ingest lifecycle, frontend views, HTTP API, CLI, and MCP.
+
+## Screenshots
+
+Local ExampleOrg demo. Executive and developer views with no scanner ingest yet;
+coverage tiles use `make coverage-sample`. Admin can show unowned findings if the
+local database already has snapshots.
+
+![Executive view](docs/images/executive.png)
+
+![Developer overview](docs/images/developer.png)
+
+![Admin view](docs/images/admin.png)
+
+More surfaces (coverage, findings, platform, MCP) are in
+[`docs/frontend.md`](docs/frontend.md).
+
 ## Prerequisites
 
 - Python 3.13
@@ -48,7 +66,8 @@ make frontend-dev
 
 Open `http://localhost:3000`. The committed ExampleOrg configuration is fictional and
 safe for a local demo. Set `DEV_IDENTITY_EMAIL=admin@example.com` for administrator
-access or use `make dev-as-admin`.
+access or use `make dev-as-admin`. Troubleshooting, ports, and optional pollers are
+in [`docs/dev-setup.md`](docs/dev-setup.md).
 
 ## Test and validation
 
@@ -80,7 +99,8 @@ Production configuration lives in `config/`:
 
 Keep team keys aligned across ownership, registry, scope, and Wiz files. Run
 `make validate-config` after every configuration change. Terraform uploads runtime
-configuration to the deployment's config bucket.
+configuration to the deployment's config bucket. File-by-file detail is in
+[`docs/configuration.md`](docs/configuration.md).
 
 ## Optional integrations
 
@@ -98,7 +118,7 @@ intend to run.
 
 ## GCP deployment
 
-See `deploy/terraform/README.md`. Supply real project IDs, DNS, IAP principals,
+See [`deploy/terraform/README.md`](deploy/terraform/README.md). Supply real project IDs, DNS, IAP principals,
 repository identity, and integration settings through a non-committed `.tfvars` file.
 Cloud Build configurations at the repository root build the standalone backend and
 frontend images; they do not depend on a parent monorepo.

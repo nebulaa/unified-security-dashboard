@@ -19,6 +19,7 @@ out/
 .env
 .env.local
 .env.*.local
+docker-compose.override.yml
 .deploy-state.json
 var/
 *.log

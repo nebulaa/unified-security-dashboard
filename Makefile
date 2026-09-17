@@ -42,14 +42,18 @@ postgres-reset: ## Wipe local Postgres data and re-create
 
 # ---------- schema ----------
 
+# `migrations/env.py` takes DATABASE_URL from the real environment and otherwise
+# falls back to the `sqlalchemy.url` baked into alembic.ini — it never reads
+# `.env.local`. Without LOAD_ENV these targets silently migrate whatever host and
+# port alembic.ini names, not the database the rest of the stack is pointed at.
 migrate: postgres-up ## Apply Alembic migrations to local Postgres
-	@cd backend && ../$(PY) -m app.migrate upgrade head
+	@$(LOAD_ENV) cd backend && ../$(PY) -m app.migrate upgrade head
 
 migrate-revision: ## Autogenerate a new Alembic revision (use M="message")
-	@cd backend && ../$(PY) -m app.migrate revision --autogenerate -m "$(M)"
+	@$(LOAD_ENV) cd backend && ../$(PY) -m app.migrate revision --autogenerate -m "$(M)"
 
 migrate-current: ## Show current Alembic revision
-	@cd backend && ../$(PY) -m app.migrate current
+	@$(LOAD_ENV) cd backend && ../$(PY) -m app.migrate current
 
 rollup-backfill: postgres-up migrate ## Backfill daily_metrics 30d on LOCAL_DATABASE_URL (not GCP)
 	@$(LOAD_ENV) \
