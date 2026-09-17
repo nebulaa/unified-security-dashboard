@@ -9,32 +9,32 @@ description = "Unified Security Dashboard backend (API, normalizer, pollers, CLI
 license = "MIT"
 requires-python = ">=3.13"
 dependencies = [
-  "fastapi>=0.115",
-  "uvicorn[standard]>=0.32",
-  "sqlalchemy>=2.0.36",
-  "alembic>=1.13",
-  "psycopg[binary]>=3.2",
-  "pydantic>=2.9",
-  "pydantic-settings>=2.14.2",
-  "click>=8.1",
-  "google-auth>=2.35",
-  "google-cloud-pubsub>=2.27",
-  "google-cloud-storage>=2.18",
-  "google-cloud-secret-manager>=2.21",
-  "httpx>=0.27",
-  "PyYAML>=6.0",
-  "structlog>=24.4",
-  "mcp>=1.28.1,<2",
+  "fastapi>=0.141.1",
+  "uvicorn[standard]>=0.53.0",
+  "sqlalchemy>=2.0.52",
+  "alembic>=1.20.0",
+  "psycopg[binary]>=3.3.5",
+  "pydantic>=2.13.5",
+  "pydantic-settings>=2.15.0",
+  "click>=8.5.0",
+  "google-auth>=2.58.0",
+  "google-cloud-pubsub>=2.40.0",
+  "google-cloud-storage>=3.14.1",
+  "google-cloud-secret-manager>=2.30.0",
+  "httpx>=0.28.1",
+  "PyYAML>=6.0.3",
+  "structlog>=26.1.0",
+  "mcp>=2.2.0,<3",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "pytest>=8.3",
-  "pytest-asyncio>=0.24",
-  "ruff>=0.7",
-  "mypy>=1.13",
+  "pytest>=9.1.1",
+  "pytest-asyncio>=1.4.0",
+  "ruff>=0.16.7",
+  "mypy>=2.3.1",
   "types-PyYAML",
-  "respx>=0.21",
+  "respx>=0.23.1",
 ]
 
 [project.scripts]
