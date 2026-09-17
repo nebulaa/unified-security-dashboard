@@ -1,0 +1,17 @@
+# auto_close.yaml — consecutive missed snapshots before auto-close.
+# `null` means never auto-close.
+
+auto_close:
+  dependabot: 3
+  # sonarcloud uses 10 (not 2) because the multi-org poller publishes one snapshot
+  # per org; each org's snapshot marks the OTHER org's findings absent. With 2 orgs
+  # and threshold=2, a single out-of-order Pub/Sub delivery auto-closes the entire
+  # other org's finding set. 10 gives 5 full poll cycles of safety while the combined-
+  # snapshot fix (sonarcloud.py) is the long-term solution..
+  sonarcloud: 10
+  trivy: 3
+  wiz: 3
+  nuclei: 3
+  vanta: 2
+  # Jira pentest: issue left open JQL snapshot → auto_closed after one missed poll.
+  pentest: 1

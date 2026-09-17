@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: secdb
+          POSTGRES_PASSWORD: secdb
+          POSTGRES_DB: secdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U secdb -d secdb"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      ENV: local
+      IDENTITY_BACKEND: dev
+      CONFIG_STORE: fs
+      CONFIG_STORE_FS_ROOT: ${{ github.workspace }}/config
+      DATABASE_URL: postgresql+psycopg://secdb:secdb@localhost:5432/secdb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          enable-cache: true
+      - run: uv sync --project backend --extra dev
+      - name: Ruff
+        run: uv run --project backend ruff check backend/app backend/migrations
+      - name: Config validation
+        run: uv run --project backend python scripts/validate_config.py
+      - name: Tests
+        run: uv run --project backend pytest -q backend/tests
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run typecheck
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend

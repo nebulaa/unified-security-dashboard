@@ -1,0 +1,10 @@
+# Test fixture — auto-close thresholds (matches prod schema).
+
+auto_close:
+  dependabot: 3
+  sonarcloud: 2
+  trivy: 3
+  wiz: 3
+  nuclei: 3
+  vanta: 2
+  pentest: 1

@@ -1,0 +1,3 @@
+# Test fixture for the single-flag RBAC model.
+admin_emails:
+  - admin1@example.com

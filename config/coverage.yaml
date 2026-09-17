@@ -1,0 +1,51 @@
+# ExampleOrg coverage policy. Cloud inventory is optional and disabled by default.
+version: 1
+
+thresholds:
+  green_pct: 95
+  amber_pct: 80
+
+staleness_hours: 36
+enabled_layers: [code]
+
+inventory:
+  cloud_accounts:
+    sources: [gcp_resource_manager, aws_organizations]
+    production:
+      gcp:
+        folders: []
+        name_patterns: ["-prod-"]
+        labels:
+          environment: prod
+      aws:
+        organizational_units: []
+        tags:
+          Environment: prod
+  clusters:
+    sources: [gke, eks]
+  vms:
+    sources: [gce, ec2]
+    states: [running]
+    min_age_hours: 24
+  launch_templates:
+    sources: [ec2_launch_templates]
+  repos:
+    sources: [github_org]
+    eligibility:
+      archived: false
+      fork: false
+      pushed_within_days: 90
+
+projects:
+  example-product:
+    label: Example Product
+    flagship: true
+    code:
+      github_topics: [example-product]
+      exclude_github_topics: []
+    cloud:
+      gcp_folders: []
+      name_patterns: ["example-prod"]
+      exclude_name_patterns: []
+
+exceptions: []

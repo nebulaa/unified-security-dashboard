@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme palettes
+   --------------
+   `:root` carries the LIGHT-mode palette (default). `.dark` overrides with the
+   DARK-mode palette. Both palettes describe the same Tailwind tokens (`white`,
+   `neutral-50` through `neutral-950`); the only difference is the brightness
+   end each token sits at. See `tailwind.config.ts` for the wiring rationale.
+
+   The dark-mode values are the upstream Tailwind defaults; the light-mode
+   values are the *inverse* of those, so `bg-neutral-950` flips from near-black
+   to near-white when the user toggles theme — no per-component `dark:` rewrite
+   needed for the bulk of the surface. */
+@layer base {
+  :root {
+    color-scheme: light;
+    /* Light mode is a mirror of the dark palette: each `neutral-X` token
+       takes the value of dark-mode `neutral-(1000-X)`, so `bg-neutral-950`
+       (the page background) flips from near-black to near-white, while
+       `text-neutral-100` (primary text) flips from near-white to near-black.
+       The mid shade (500 = #737373) is the axis of symmetry and stays put.
+
+       `white` flips too via `--c-fg`, so `text-white`, `border-white/5` and
+       `from-white` (gradient text) all read against a light surface without
+       any per-callsite `dark:` rewrite. */
+    --c-fg: 23 23 23; /* #171717 — flipped from #ffffff */
+    --c-neutral-50: 10 10 10; /* swap with 950 */
+    --c-neutral-100: 23 23 23; /* swap with 900 */
+    --c-neutral-200: 38 38 38; /* swap with 800 */
+    --c-neutral-300: 64 64 64; /* swap with 700 */
+    --c-neutral-400: 82 82 82; /* swap with 600 */
+    --c-neutral-500: 115 115 115; /* mid stays */
+    --c-neutral-600: 163 163 163; /* swap with 400 */
+    --c-neutral-700: 212 212 212; /* swap with 300 */
+    --c-neutral-800: 229 229 229; /* swap with 200 */
+    --c-neutral-900: 245 245 245; /* swap with 100 */
+    --c-neutral-950: 250 250 250; /* swap with 50 */
+  }
+  .dark {
+    color-scheme: dark;
+    /* Upstream Tailwind v3 neutral palette — unchanged from the values the
+       components were originally authored against. */
+    --c-fg: 255 255 255;
+    --c-neutral-50: 250 250 250;
+    --c-neutral-100: 245 245 245;
+    --c-neutral-200: 229 229 229;
+    --c-neutral-300: 212 212 212;
+    --c-neutral-400: 163 163 163;
+    --c-neutral-500: 115 115 115;
+    --c-neutral-600: 82 82 82;
+    --c-neutral-700: 64 64 64;
+    --c-neutral-800: 38 38 38;
+    --c-neutral-900: 23 23 23;
+    --c-neutral-950: 10 10 10;
+  }
+  body {
+    @apply bg-neutral-950 text-neutral-100;
+  }
+  table {
+    @apply text-sm;
+  }
+}

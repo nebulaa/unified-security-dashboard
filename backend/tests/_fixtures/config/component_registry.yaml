@@ -1,0 +1,64 @@
+# Test fixture — mirrors component_scope.yaml + ownership test assets.
+version: 1
+
+executive_pillars:
+  product:
+    label: Product
+    team_keys:
+      - pricing-platform
+      - data-platform
+      - product-platform
+    sub_teams:
+      - label: Pricing Platform
+        team_key: pricing-platform
+      - label: Data Platform
+        team_key: data-platform
+      - label: Product Platform
+        team_key: product-platform
+  retail:
+    label: Retail
+    team_keys:
+      - platform-retail
+    sub_teams:
+      - label: Retail Platform
+        team_key: platform-retail
+  io:
+    label: Infrastructure
+    team_keys:
+      - io-data-eng
+      - io-platform-eng
+    sub_teams:
+      - label: IO Data Engineering
+        team_key: io-data-eng
+      - label: Platform Engineering
+        team_key: io-platform-eng
+
+out_of_view_teams: []
+
+components:
+  - key: pricing-service
+    label: PricingService
+    application: pricing-app
+    application_label: Pricing App
+    repo: example-service
+    sonar_projects: []
+    teams: [pricing-platform]
+    views: [developer]
+    dev_pillar: product
+  - key: another-service
+    label: AnotherService
+    application: data-app
+    application_label: Data App
+    repo: another-service
+    sonar_projects: []
+    teams: [data-platform]
+    views: [developer]
+    dev_pillar: product
+  - key: order-engine
+    label: Order Engine
+    application: product-app
+    application_label: Product App
+    teams: [order]
+    views: [developer]
+    dev_pillar: product
+    wiz_service: order-engine

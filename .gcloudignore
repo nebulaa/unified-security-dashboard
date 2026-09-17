@@ -1,0 +1,39 @@
+# Cloud Build / gcloud upload exclusions.
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Local dev state
+.env
+.env.local
+.env.*.local
+var/
+*.log
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Secrets (never upload)
+*.pem
+service-account-*.json
+
+# Repo-internal docs not needed at build time
+reference-docs/
+plans/
+agent-transcripts/

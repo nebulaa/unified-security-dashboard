@@ -1,0 +1,56 @@
+# Test fixture — synthetic teams used by the backend pytest suite.
+# Matches the data the test factory seeds in test_api_findings.py et al.
+#
+# `pricing-platform` and `data-platform` live in the `product` pillar so they fall
+# inside the structural `/developer` view scope (`DEVELOPER_VIEW_PILLARS` in
+# `app/api/scoping.py`). `io-data-eng` lives in the `io` pillar
+# so it does NOT — it's used by tests pinning that a developer holding only an
+# io-pillar team sees nothing on /developer.
+#
+# `unowned` intentionally carries no pillar — it's the sentinel for findings
+# whose asset isn't mapped, and the dashboard's contract is that it's surfaced
+# on /admin (admin triage), never on /developer.
+
+pillars:
+  product:
+    name: "Product"
+  retail:
+    name: "Retail"
+  io:
+    name: "I&O — Infrastructure & Operations"
+
+assets:
+  - { id: "repo:ExampleOrg/example-service", type: github_repo, team: pricing-platform }
+  - { id: "repo:ExampleOrg/another-service", type: github_repo, team: data-platform }
+
+teams:
+  pricing-platform:
+    pillar: product
+    display_name: "Pricing Platform (test)"
+    members:
+      - dev1@example.com
+      - dev2@example.com
+  data-platform:
+    pillar: product
+    display_name: "Data Platform (test)"
+    members:
+      - dev3@example.com
+  io-data-eng:
+    pillar: io
+    display_name: "IO Data Engineering (test)"
+    members:
+      - io1@example.com
+  io-platform-eng:
+    pillar: io
+    display_name: "Platform Engineering (test)"
+    members: []
+  product-platform:
+    pillar: product
+    display_name: "Product Platform (test)"
+    members: []
+  platform-retail:
+    pillar: retail
+    display_name: "Retail Platform (test)"
+    members: []
+  unowned:
+    members: []

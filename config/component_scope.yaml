@@ -1,0 +1,61 @@
+version: 1
+
+executive_pillars:
+  product:
+    label: Product
+    team_keys: [storefront, orders, product-platform]
+  retail:
+    label: Retail
+    team_keys: [retail, merchandising, platform-retail]
+  data:
+    label: Data
+    team_keys: [data-engineering, analytics, data-platform]
+
+applications:
+  commerce:
+    label: Commerce
+    teams: [storefront, orders]
+  product-platform:
+    label: Product Platform
+    teams: [product-platform]
+  retail:
+    label: Retail
+    teams: [retail, merchandising]
+  retail-platform:
+    label: Retail Platform
+    teams: [platform-retail]
+  data-platform:
+    label: Data Platform
+    teams: [data-engineering, data-platform]
+  analytics:
+    label: Analytics
+    teams: [analytics]
+
+services:
+  web-store:
+    label: Web Store
+    teams: [storefront]
+  orders-api:
+    label: Orders API
+    teams: [orders]
+  product-platform:
+    label: Product Platform
+    teams: [product-platform]
+  retail-api:
+    label: Retail API
+    teams: [retail]
+  catalog-api:
+    label: Catalog API
+    teams: [merchandising]
+  retail-platform:
+    label: Retail Platform
+    teams: [platform-retail]
+  event-pipeline:
+    label: Event Pipeline
+    teams: [data-engineering]
+  analytics-api:
+    label: Analytics API
+    teams: [analytics]
+  data-foundation:
+    label: Data Foundation
+    teams: [data-platform]

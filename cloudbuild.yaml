@@ -1,0 +1,103 @@
+# Build + push images. Day-to-day deploys go through `./scripts/deploy-cloud.sh`
+# (Terraform rolls Cloud Run). Uncomment the deploy steps below only if you
+# want Cloud Build to roll services in the same pipeline.
+#
+# Triggered manually via `gcloud builds submit --config cloudbuild.yaml`.
+
+substitutions:
+  _REGION: europe-west1
+  _REPO: secdb
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$BUILD_ID
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:latest
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/frontend:$BUILD_ID
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/frontend:latest
+
+steps:
+  - id: build-backend
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - backend/Dockerfile
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$BUILD_ID
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:latest
+      - .
+    waitFor: ["-"]
+
+  - id: build-frontend
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - frontend/Dockerfile
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/frontend:$BUILD_ID
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/frontend:latest
+      - .
+    waitFor: ["-"]
+
+  # ---- Deploys (uncomment once services exist; see deploy/ scripts for first run) ----
+  # - id: migrate
+  #   name: gcr.io/google.com/cloudsdktool/cloud-cli
+  #   entrypoint: gcloud
+  #   args: [run, jobs, execute, secdb-migrate, --region, ${_REGION}, --wait]
+  #   waitFor: [build-backend]
+  #
+  # - id: deploy-api
+  #   name: gcr.io/google.com/cloudsdktool/cloud-cli
+  #   entrypoint: gcloud
+  #   args:
+  #     - run
+  #     - deploy
+  #     - secdb-api
+  #     - --region=${_REGION}
+  #     - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$SHORT_SHA
+  #   waitFor: [migrate]
+  #
+  # - id: deploy-normalizer
+  #   name: gcr.io/google.com/cloudsdktool/cloud-cli
+  #   entrypoint: gcloud
+  #   args:
+  #     - run
+  #     - deploy
+  #     - secdb-normalizer
+  #     - --region=${_REGION}
+  #     - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$SHORT_SHA
+  #   waitFor: [migrate]
+  #
+  # - id: deploy-frontend
+  #   name: gcr.io/google.com/cloudsdktool/cloud-cli
+  #   entrypoint: gcloud
+  #   args:
+  #     - run
+  #     - deploy
+  #     - secdb-frontend
+  #     - --region=${_REGION}
+  #     - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/frontend:$SHORT_SHA
+  #
+  # MCP service is created and wired by Terraform (deploy/terraform/cloud_run.tf
+  # `google_cloud_run_v2_service.mcp`); the env vars (MCP_TRANSPORT,
+  # MCP_API_BASE_URL, MCP_HOST, MCP_PORT) are owned there. CI just rolls the
+  # image — it must NOT pass --set-env-vars or --command, otherwise it'll
+  # diverge from Terraform's view of the world.
+  # - id: deploy-mcp
+  #   name: gcr.io/google.com/cloudsdktool/cloud-cli
+  #   entrypoint: gcloud
+  #   args:
+  #     - run
+  #     - deploy
+  #     - secdb-mcp
+  #     - --region=${_REGION}
+  #     - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$BUILD_ID
+  #   waitFor: [deploy-api]
+
+timeout: 1800s

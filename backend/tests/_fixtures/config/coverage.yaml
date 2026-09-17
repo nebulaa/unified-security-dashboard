@@ -1,0 +1,27 @@
+# Minimal coverage policy for tests (not a copy of repo-root `config/coverage.yaml`).
+version: 1
+
+thresholds:
+  green_pct: 95
+  amber_pct: 85
+
+staleness_hours: 36
+
+projects:
+  product-offer-order:
+    label: PRODUCT Offer & Order
+    flagship: true
+
+exceptions:
+  - item_type: repo
+    item_id: "repo:ExampleOrg/excepted-repo"
+    metric: "*"
+    owner: "security-team"
+    reason: "Decommission in flight"
+    expires: "2099-01-01"
+  - item_type: repo
+    item_id: "repo:ExampleOrg/expired-exception-repo"
+    metric: "*"
+    owner: "security-team"
+    reason: "Exception lapsed — must be back in the denominator"
+    expires: "2000-01-01"

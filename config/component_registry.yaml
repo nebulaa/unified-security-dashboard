@@ -1,0 +1,118 @@
+version: 1
+
+executive_pillars:
+  product:
+    label: Product
+    team_keys: [storefront, orders, product-platform]
+    sub_teams:
+      - { label: Storefront, team_key: storefront }
+      - { label: Orders, team_key: orders }
+      - { label: Product Platform, team_key: product-platform }
+  retail:
+    label: Retail
+    team_keys: [retail, merchandising, platform-retail]
+    sub_teams:
+      - { label: Retail, team_key: retail }
+      - { label: Merchandising, team_key: merchandising }
+      - { label: Retail Platform, team_key: platform-retail }
+  data:
+    label: Data
+    team_keys: [data-engineering, analytics, data-platform]
+    sub_teams:
+      - { label: Data Engineering, team_key: data-engineering }
+      - { label: Analytics, team_key: analytics }
+      - { label: Data Platform, team_key: data-platform }
+
+out_of_view_teams: []
+
+components:
+  - key: web-store
+    label: Web Store
+    application: commerce
+    application_label: Commerce
+    repo: web-store
+    sonar_projects: [ExampleOrg_web-store]
+    wiz_service: web-store
+    teams: [storefront]
+    views: [developer, executive]
+    dev_pillar: product
+  - key: orders-api
+    label: Orders API
+    application: commerce
+    application_label: Commerce
+    repo: orders-api
+    sonar_projects: [ExampleOrg_orders-api]
+    wiz_service: orders-api
+    teams: [orders]
+    views: [developer, executive]
+    dev_pillar: product
+  - key: product-platform
+    label: Product Platform
+    application: product-platform
+    application_label: Product Platform
+    repo: product-platform
+    sonar_projects: [ExampleOrg_product-platform]
+    wiz_service: product-platform
+    teams: [product-platform]
+    views: [platform]
+    dev_pillar: product
+  - key: retail-api
+    label: Retail API
+    application: retail
+    application_label: Retail
+    repo: retail-api
+    sonar_projects: [ExampleOrg_retail-api]
+    wiz_service: retail-api
+    teams: [retail]
+    views: [developer, executive]
+    dev_pillar: retail
+  - key: catalog-api
+    label: Catalog API
+    application: retail
+    application_label: Retail
+    repo: catalog-api
+    sonar_projects: [ExampleOrg_catalog-api]
+    wiz_service: catalog-api
+    teams: [merchandising]
+    views: [developer, executive]
+    dev_pillar: retail
+  - key: retail-platform
+    label: Retail Platform
+    application: retail-platform
+    application_label: Retail Platform
+    repo: retail-platform
+    sonar_projects: [ExampleOrg_retail-platform]
+    wiz_service: retail-platform
+    teams: [platform-retail]
+    views: [platform]
+    dev_pillar: retail
+  - key: event-pipeline
+    label: Event Pipeline
+    application: data-platform
+    application_label: Data Platform
+    repo: event-pipeline
+    sonar_projects: [ExampleOrg_event-pipeline]
+    wiz_service: event-pipeline
+    teams: [data-engineering]
+    views: [developer, executive]
+    dev_pillar: data
+  - key: analytics-api
+    label: Analytics API
+    application: analytics
+    application_label: Analytics
+    repo: analytics-api
+    sonar_projects: [ExampleOrg_analytics-api]
+    wiz_service: analytics-api
+    teams: [analytics]
+    views: [developer, executive]
+    dev_pillar: data
+  - key: data-foundation
+    label: Data Foundation
+    application: data-platform
+    application_label: Data Platform
+    repo: data-foundation
+    sonar_projects: [ExampleOrg_data-foundation]
+    wiz_service: data-foundation
+    teams: [data-platform]
+    views: [platform]
+    dev_pillar: data

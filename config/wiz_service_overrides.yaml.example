@@ -1,0 +1,4 @@
+# Copy to wiz_service_overrides.yaml for tenant-specific forced mappings.
+overrides:
+  legacy-web-store: web-store
+  legacy-retail-api: retail-api

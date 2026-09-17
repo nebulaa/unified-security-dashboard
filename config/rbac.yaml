@@ -1,0 +1,3 @@
+# Example admin identity for local demonstration. Replace before deployment.
+admin_emails:
+  - admin@example.com

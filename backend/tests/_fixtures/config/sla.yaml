@@ -1,0 +1,8 @@
+# Test fixture — SLA windows per severity.
+
+sla:
+  critical: 7d
+  high: 30d
+  medium: 90d
+  low: 180d
+  info: null

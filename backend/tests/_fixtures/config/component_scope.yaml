@@ -1,0 +1,25 @@
+version: 1
+
+executive_pillars:
+  product:
+    label: Product
+    team_keys:
+      - pricing-platform
+      - data-platform
+  rm-io:
+    label: RM (I&O)
+    team_keys:
+      - io-data-eng
+
+applications:
+  pricing-app:
+    label: Pricing App
+    teams: [pricing-platform]
+  data-app:
+    label: Data App
+    teams: [data-platform]
+
+services:
+  pricing-service:
+    label: PricingService
+    teams: [pricing-platform]

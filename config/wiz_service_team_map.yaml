@@ -1,0 +1,11 @@
+version: 1
+teams:
+  web-store: storefront
+  orders-api: orders
+  product-platform: product-platform
+  retail-api: retail
+  catalog-api: merchandising
+  retail-platform: platform-retail
+  event-pipeline: data-engineering
+  analytics-api: analytics
+  data-foundation: data-platform

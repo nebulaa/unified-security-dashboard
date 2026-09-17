@@ -1,0 +1,44 @@
+substitutions:
+  _REGION: europe-west1
+  _REPO: secdb
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+  # BuildKit enables layer caching for multi-stage builds and inline cache
+  # metadata embedded in the pushed image (via BUILDKIT_INLINE_CACHE=1 below).
+  env:
+    - DOCKER_BUILDKIT=1
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$BUILD_ID
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:latest
+
+steps:
+  # Pull the previous :latest image so Docker can reuse its layers as cache.
+  # The `|| true` handles the first-ever build where no image exists yet.
+  - id: pull-cache
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        docker pull ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:latest || true
+
+  - id: build-backend
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      # Embed cache metadata in the pushed image so future builds can reuse layers.
+      - --build-arg=BUILDKIT_INLINE_CACHE=1
+      - --cache-from=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:latest
+      - -f
+      - backend/Dockerfile
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:$BUILD_ID
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/backend:latest
+      - .
+    waitFor: [pull-cache]
+
+timeout: 1200s

@@ -1,0 +1,129 @@
+# ExampleOrg demo ownership. Replace these fictional values for your deployment.
+pillars:
+  product:
+    name: Product
+  retail:
+    name: Retail
+  data:
+    name: Data
+
+excluded_repos:
+  - archived-example
+
+assets:
+  - { id: "repo:ExampleOrg/web-store", type: github_repo, team: storefront }
+  - id: "sonarproj:ExampleOrg_web-store"
+    type: sonarcloud_project
+    team: storefront
+    sonar_project_key: ExampleOrg_web-store
+  - { id: "repo:ExampleOrg/orders-api", type: github_repo, team: orders }
+  - id: "sonarproj:ExampleOrg_orders-api"
+    type: sonarcloud_project
+    team: orders
+    sonar_project_key: ExampleOrg_orders-api
+  - { id: "repo:ExampleOrg/product-platform", type: github_repo, team: product-platform }
+  - id: "sonarproj:ExampleOrg_product-platform"
+    type: sonarcloud_project
+    team: product-platform
+    sonar_project_key: ExampleOrg_product-platform
+  - { id: "repo:ExampleOrg/retail-api", type: github_repo, team: retail }
+  - id: "sonarproj:ExampleOrg_retail-api"
+    type: sonarcloud_project
+    team: retail
+    sonar_project_key: ExampleOrg_retail-api
+  - { id: "repo:ExampleOrg/catalog-api", type: github_repo, team: merchandising }
+  - id: "sonarproj:ExampleOrg_catalog-api"
+    type: sonarcloud_project
+    team: merchandising
+    sonar_project_key: ExampleOrg_catalog-api
+  - { id: "repo:ExampleOrg/retail-platform", type: github_repo, team: platform-retail }
+  - id: "sonarproj:ExampleOrg_retail-platform"
+    type: sonarcloud_project
+    team: platform-retail
+    sonar_project_key: ExampleOrg_retail-platform
+  - { id: "repo:ExampleOrg/event-pipeline", type: github_repo, team: data-engineering }
+  - id: "sonarproj:ExampleOrg_event-pipeline"
+    type: sonarcloud_project
+    team: data-engineering
+    sonar_project_key: ExampleOrg_event-pipeline
+  - { id: "repo:ExampleOrg/analytics-api", type: github_repo, team: analytics }
+  - id: "sonarproj:ExampleOrg_analytics-api"
+    type: sonarcloud_project
+    team: analytics
+    sonar_project_key: ExampleOrg_analytics-api
+  - { id: "repo:ExampleOrg/data-foundation", type: github_repo, team: data-platform }
+  - id: "sonarproj:ExampleOrg_data-foundation"
+    type: sonarcloud_project
+    team: data-platform
+    sonar_project_key: ExampleOrg_data-foundation
+
+teams:
+  storefront:
+    pillar: product
+    display_name: Storefront
+    jira_project: WEB
+    engineering_manager: null
+    security_poc: null
+    members:
+      - developer@example.com
+  orders:
+    pillar: product
+    display_name: Orders
+    jira_project: ORD
+    engineering_manager: null
+    security_poc: null
+    members: []
+  product-platform:
+    pillar: product
+    display_name: Product Platform
+    jira_project: PPLAT
+    engineering_manager: null
+    security_poc: null
+    members:
+      - platform@example.com
+  retail:
+    pillar: retail
+    display_name: Retail
+    jira_project: RTL
+    engineering_manager: null
+    security_poc: null
+    members: []
+  merchandising:
+    pillar: retail
+    display_name: Merchandising
+    jira_project: MERCH
+    engineering_manager: null
+    security_poc: null
+    members: []
+  platform-retail:
+    pillar: retail
+    display_name: Retail Platform
+    jira_project: RPLAT
+    engineering_manager: null
+    security_poc: null
+    members: []
+  data-engineering:
+    pillar: data
+    display_name: Data Engineering
+    jira_project: DATA
+    engineering_manager: null
+    security_poc: null
+    members: []
+  analytics:
+    pillar: data
+    display_name: Analytics
+    jira_project: AN
+    engineering_manager: null
+    security_poc: null
+    members: []
+  data-platform:
+    pillar: data
+    display_name: Data Platform
+    jira_project: DPLAT
+    engineering_manager: null
+    security_poc: null
+    members: []
+  excluded:
+    members: []
+  unowned:
+    members: []

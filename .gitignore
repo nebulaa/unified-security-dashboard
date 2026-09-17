@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Local dev state
+.env
+.env.local
+.env.*.local
+.deploy-state.json
+var/
+*.log
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Terraform local state and provider caches
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Secrets
+*.pem
+service-account-*.json
+
+#reference
+reference-docs/
+
+#plans
+plans/
+
+# Operator CLI output (`make wiz-map-suggest`); apply copies into wiz_service_team_map.yaml
+config/wiz_service_map.suggested.yaml

@@ -1,0 +1,26 @@
+# Optional Wiz cloud-account mapping with fictional identifiers.
+version: 1
+generated_at: "2026-01-01"
+wiz_tenant: ExampleOrg
+wiz_api_url: ""
+default_pillar: null
+
+name_patterns:
+  - pattern: "example-product"
+    pillar: product
+  - pattern: "example-retail"
+    pillar: retail
+  - pattern: "example-data"
+    pillar: data
+
+subscriptions:
+  - name: example-product-prod
+    external_id: example-product-prod
+    cloud_provider: GCP
+    wiz_status: CONNECTED
+    pillar: product
+  - name: example-retail-prod
+    external_id: example-retail-prod
+    cloud_provider: GCP
+    wiz_status: CONNECTED
+    pillar: retail
