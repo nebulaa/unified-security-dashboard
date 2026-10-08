@@ -9,30 +9,30 @@ description = "Unified Security Dashboard backend (API, normalizer, pollers, CLI
 license = "MIT"
 requires-python = ">=3.13"
 dependencies = [
-  "fastapi>=0.141.1",
-  "uvicorn[standard]>=0.53.0",
-  "sqlalchemy>=2.0.52",
+  "fastapi>=0.142.2",
+  "uvicorn[standard]>=0.54.0",
+  "sqlalchemy>=2.1.3",
   "alembic>=1.20.0",
-  "psycopg[binary]>=3.3.5",
+  "psycopg[binary]>=3.3.6",
   "pydantic>=2.13.5",
   "pydantic-settings>=2.15.0",
   "click>=8.5.0",
-  "google-auth>=2.58.0",
-  "google-cloud-pubsub>=2.40.0",
-  "google-cloud-storage>=3.14.1",
-  "google-cloud-secret-manager>=2.30.0",
+  "google-auth>=2.59.1",
+  "google-cloud-pubsub>=2.42.0",
+  "google-cloud-storage>=3.16.0",
+  "google-cloud-secret-manager>=2.31.0",
   "httpx>=0.28.1",
   "PyYAML>=6.0.3",
   "structlog>=26.1.0",
-  "mcp>=2.2.0,<3",
+  "mcp>=2.3.0,<3",
 ]
 
 [project.optional-dependencies]
 dev = [
   "pytest>=9.1.1",
   "pytest-asyncio>=1.4.0",
-  "ruff>=0.16.7",
-  "mypy>=2.3.1",
+  "ruff>=0.16.10",
+  "mypy>=2.4.0",
   "types-PyYAML",
   "respx>=0.23.1",
 ]
